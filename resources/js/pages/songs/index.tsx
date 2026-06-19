@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, Head } from '@inertiajs/react';
 import Header from '@/components/header';
 
 type SongType = {
@@ -23,6 +23,7 @@ type Props = {
 export default function Songs({ songs }: Props) {
     return (
         <>
+            <Head title="楽曲一覧" />
             <div className="m-4">
                 <Link
                     href="/"
