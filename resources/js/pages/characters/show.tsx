@@ -61,6 +61,10 @@ export default function CharacterDetail({ character }: Props) {
                             <td>{character.detail.height}cm</td>
                         </tr>
                         <tr>
+                            <th>誕生日</th>
+                            <td>{character.detail.birthday}</td>
+                        </tr>
+                        <tr>
                             <th>イメージカラー</th>
                             <td>
                                 <div className="flex items-center justify-start">
