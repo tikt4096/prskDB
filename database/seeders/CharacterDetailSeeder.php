@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\CharacterDetail;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class CharacterDetailSeeder extends Seeder
 {
@@ -13,6 +15,9 @@ class CharacterDetailSeeder extends Seeder
      */
     public function run(): void
     {
+        Schema::disableForeignKeyConstraints();
+        DB::table('characterDetails')->truncate();
+
         $characterDetails = [
             ['character_id' => 1, 'gender_id' => 2, 'unit_id' => 1],
             ['character_id' => 2, 'gender_id' => 2, 'unit_id' => 1],
@@ -45,5 +50,7 @@ class CharacterDetailSeeder extends Seeder
         foreach ($characterDetails as $characterDetail) {
             CharacterDetail::create($characterDetail);
         }
+
+        Schema::enableForeignKeyConstraints();
     }
 }

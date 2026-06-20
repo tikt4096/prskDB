@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\VocalType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class VocalTypeSeeder extends Seeder
 {
@@ -13,6 +15,9 @@ class VocalTypeSeeder extends Seeder
      */
     public function run(): void
     {
+        Schema::disableForeignKeyConstraints();
+        DB::table('vocalTypes')->truncate();
+
         $vocalTypes = [
             ['name' => 'バーチャルシンガー'],
             ['name' => 'セカイ'],
@@ -24,5 +29,7 @@ class VocalTypeSeeder extends Seeder
         foreach ($vocalTypes as $vocalType) {
             VocalType::create($vocalType);
         }
+
+        Schema::enableForeignKeyConstraints();
     }
 }
