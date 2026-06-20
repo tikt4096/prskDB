@@ -16,7 +16,7 @@ class CharacterTypeSeeder extends Seeder
     public function run(): void
     {
         Schema::disableForeignKeyConstraints();
-        DB::table('characterTypes')->truncate();
+        DB::table('character_types')->truncate();
 
         $characterTypes = [
             ['name' => 'playable'],

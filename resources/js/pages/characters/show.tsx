@@ -14,6 +14,10 @@ type Gender = {
 type Detail = {
     unit: Unit;
     gender: Gender;
+    birthday: string;
+    height: number;
+    color: string;
+    introduction: string;
 };
 
 type Character = {
@@ -53,8 +57,31 @@ export default function CharacterDetail({ character }: Props) {
                             <td>{character.detail.unit.name}</td>
                         </tr>
                         <tr>
+                            <th>身長</th>
+                            <td>{character.detail.height}cm</td>
+                        </tr>
+                        <tr>
+                            <th>誕生日</th>
+                            <td>{character.detail.birthday}</td>
+                        </tr>
+                        <tr>
+                            <th>イメージカラー</th>
+                            <td>
+                                <div className="flex items-center justify-start">
+                                    <div
+                                        className="mr-2 h-5 w-5"
+                                        style={{
+                                            backgroundColor:
+                                                character.detail.color,
+                                        }}
+                                    ></div>
+                                    {character.detail.color}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
                             <th>紹介文</th>
-                            <td>準備中</td>
+                            <td>{character.detail.introduction}</td>
                         </tr>
                     </tbody>
                 </table>
