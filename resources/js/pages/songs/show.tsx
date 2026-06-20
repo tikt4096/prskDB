@@ -1,5 +1,6 @@
 import { Link, Head } from '@inertiajs/react';
 import Header from '@/components/header';
+import { useEffect, useState } from 'react';
 
 type SongType = {
     name: string;
@@ -64,48 +65,53 @@ type VocalGroup = {
 };
 
 export default function show({ song }: Props) {
-    const singers = song.character_to_songs.map((s) => {
-        const character = song.characters.find(
-            (character) => s.character_id === character.id,
-        )!;
+    const [vocalGroupRows, setVocalGroupRows] = useState<VocalGroup[]>([]);
 
-        return { ...s, character };
-    });
+    useEffect(() => {
+        const singers = song.character_to_songs.map((s) => {
+            const character = song.characters.find(
+                (character) => s.character_id === character.id,
+            )!;
 
-    // 歌唱キャラクターを音源毎、同時歌唱毎にグループ分け
-    const vocalGroups: VocalGroup[] = [];
+            return { ...s, character };
+        });
 
-    for (const singer of singers) {
-        let vocalGroup = vocalGroups.find(
-            (vg) => vg.vocalType.id === singer.vocal_type.id,
-        );
+        // 歌唱キャラクターを音源毎、同時歌唱毎にグループ分け
+        const vocalGroups: VocalGroup[] = [];
 
-        if (!vocalGroup) {
-            vocalGroups.push({
-                vocalType: singer.vocal_type,
-                singerGroups: [],
-            });
-            vocalGroup = vocalGroups.find(
+        for (const singer of singers) {
+            let vocalGroup = vocalGroups.find(
                 (vg) => vg.vocalType.id === singer.vocal_type.id,
             );
-        }
 
-        let singerGroup = vocalGroup?.singerGroups.find(
-            (sg) => sg.combination_id === singer.combination_id,
-        );
+            if (!vocalGroup) {
+                vocalGroups.push({
+                    vocalType: singer.vocal_type,
+                    singerGroups: [],
+                });
+                vocalGroup = vocalGroups.find(
+                    (vg) => vg.vocalType.id === singer.vocal_type.id,
+                );
+            }
 
-        if (!singerGroup) {
-            vocalGroup?.singerGroups.push({
-                combination_id: singer.combination_id,
-                characters: [],
-            });
-            singerGroup = vocalGroup?.singerGroups.find(
+            let singerGroup = vocalGroup?.singerGroups.find(
                 (sg) => sg.combination_id === singer.combination_id,
             );
-        }
 
-        singerGroup?.characters.push(singer.character);
-    }
+            if (!singerGroup) {
+                vocalGroup?.singerGroups.push({
+                    combination_id: singer.combination_id,
+                    characters: [],
+                });
+                singerGroup = vocalGroup?.singerGroups.find(
+                    (sg) => sg.combination_id === singer.combination_id,
+                );
+            }
+
+            singerGroup?.characters.push(singer.character);
+        }
+        setVocalGroupRows(vocalGroups);
+    }, []);
 
     return (
         <>
@@ -132,7 +138,7 @@ export default function show({ song }: Props) {
                         <span>{song.release_date.replace(/-/g, '/')}</span>
                     </div>
                 </div>
-                {vocalGroups.length > 0 && (
+                {vocalGroupRows.length > 0 && (
                     <>
                         <h2 className="m-6 text-xl font-bold">歌唱</h2>
                         <table className="table">
@@ -143,7 +149,7 @@ export default function show({ song }: Props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {vocalGroups.map((vg) => {
+                                {vocalGroupRows.map((vg) => {
                                     return vg.singerGroups.map(
                                         (singers, index) => {
                                             return (

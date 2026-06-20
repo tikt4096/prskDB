@@ -1,5 +1,6 @@
 import Header from '@/components/header';
 import { Link, Head } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
 
 type Unit = {
     id: number;
@@ -17,25 +18,35 @@ type Character = {
     detail: Detail;
 };
 
+type Index = {
+    unit?: Unit;
+    character?: Character;
+};
+
 type Props = {
     characters: Character[];
 };
 
 export default function index({ characters }: Props) {
-    const indexRows = [];
-    let prevUnitId = -1;
+    const [characterDataRows, setCharacterDataRows] = useState<Index[]>([]);
 
-    for (const character of characters) {
-        if (prevUnitId != character.detail.unit.id) {
+    useEffect(() => {
+        const indexRows = [];
+        let prevUnitId = -1;
+
+        for (const character of characters) {
+            if (prevUnitId != character.detail.unit.id) {
+                indexRows.push({
+                    unit: character.detail.unit,
+                });
+                prevUnitId = character.detail.unit.id;
+            }
             indexRows.push({
-                unit: character.detail.unit,
+                character: character,
             });
-            prevUnitId = character.detail.unit.id;
         }
-        indexRows.push({
-            character: character,
-        });
-    }
+        setCharacterDataRows(indexRows);
+    }, []);
 
     return (
         <>
@@ -51,7 +62,7 @@ export default function index({ characters }: Props) {
             <Header>キャラクター一覧</Header>
             <table className="table">
                 <tbody>
-                    {indexRows.map((row) => {
+                    {characterDataRows.map((row) => {
                         return 'unit' in row ? (
                             <tr>
                                 <th
@@ -65,10 +76,10 @@ export default function index({ characters }: Props) {
                             <tr>
                                 <td>
                                     <Link
-                                        href={`characters/${row.character.id}`}
+                                        href={`characters/${row.character?.id}`}
                                         className="font-bold text-blue-500 hover:text-blue-600"
                                     >
-                                        {row.character.name}
+                                        {row.character?.name}
                                     </Link>
                                 </td>
                             </tr>
