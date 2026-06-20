@@ -1,6 +1,6 @@
 import { Link, Head } from '@inertiajs/react';
-import Header from '@/components/header';
 import { useEffect, useState } from 'react';
+import PageHeader from '@/components/pageHeader';
 
 type SongType = {
     name: string;
@@ -115,17 +115,15 @@ export default function show({ song }: Props) {
 
     return (
         <>
-            <Head title={song.name} />
-            <div className="song-detail-container">
-                <div className="mt-4">
-                    <Link
-                        href="/songs"
-                        className="rounded bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
-                    >
-                        戻る
-                    </Link>
-                </div>
-                <Header>{song.name}</Header>
+            <PageHeader caption={song.name}>
+                <Link
+                    href="/songs"
+                    className="rounded bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
+                >
+                    戻る
+                </Link>
+            </PageHeader>
+            <div className="m-6">
                 <div className="ml-6">
                     <div>
                         楽曲種別 : <span>{song.type.name}</span>
