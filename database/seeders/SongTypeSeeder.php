@@ -16,7 +16,7 @@ class SongTypeSeeder extends Seeder
     public function run(): void
     {
         Schema::disableForeignKeyConstraints();
-        DB::table('songtypes')->truncate();
+        DB::table('song_types')->truncate();
 
         $songTypes = [
             ['name' => '既存曲'],

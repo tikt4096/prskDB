@@ -16,7 +16,7 @@ class VocalTypeSeeder extends Seeder
     public function run(): void
     {
         Schema::disableForeignKeyConstraints();
-        DB::table('vocalTypes')->truncate();
+        DB::table('vocal_types')->truncate();
 
         $vocalTypes = [
             ['name' => 'バーチャルシンガー'],
