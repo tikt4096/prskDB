@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\CharacterType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class CharacterTypeSeeder extends Seeder
 {
@@ -13,6 +15,9 @@ class CharacterTypeSeeder extends Seeder
      */
     public function run(): void
     {
+        Schema::disableForeignKeyConstraints();
+        DB::table('characterTypes')->truncate();
+
         $characterTypes = [
             ['name' => 'playable'],
             ['name' => 'unplayable']
@@ -21,5 +26,7 @@ class CharacterTypeSeeder extends Seeder
         foreach ($characterTypes as $characterType) {
             CharacterType::create($characterType);
         }
+
+        Schema::enableForeignKeyConstraints();
     }
 }
