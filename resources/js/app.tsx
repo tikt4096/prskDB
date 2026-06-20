@@ -29,7 +29,7 @@ createInertiaApp({
     withApp(app) {
         return (
             <TooltipProvider delayDuration={0}>
-                <div className="m-6">{app}</div>
+                {app}
                 <Toaster />
             </TooltipProvider>
         );
