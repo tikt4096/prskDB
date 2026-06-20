@@ -5,7 +5,7 @@ type Props = {
     caption: string;
     title?: string;
     children?: React.ReactNode;
-    noTitle?: Boolean;
+    noTitle?: boolean;
 };
 
 export default function PageHeader({

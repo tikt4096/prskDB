@@ -1,7 +1,7 @@
 import { Link } from '@inertiajs/react';
 import PageHeader from '@/components/pageHeader';
 
-export default function index() {
+export default function Index() {
     return (
         <>
             <PageHeader

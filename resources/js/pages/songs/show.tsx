@@ -1,5 +1,5 @@
-import { Link, Head } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import { Link } from '@inertiajs/react';
+import { useMemo } from 'react';
 import PageHeader from '@/components/pageHeader';
 
 type SongType = {
@@ -64,10 +64,8 @@ type VocalGroup = {
     singerGroups: SingerGroup[];
 };
 
-export default function show({ song }: Props) {
-    const [vocalGroupRows, setVocalGroupRows] = useState<VocalGroup[]>([]);
-
-    useEffect(() => {
+export default function SongDetail({ song }: Props) {
+    const vocalGroupRows = useMemo(() => {
         const singers = song.character_to_songs.map((s) => {
             const character = song.characters.find(
                 (character) => s.character_id === character.id,
@@ -110,8 +108,9 @@ export default function show({ song }: Props) {
 
             singerGroup?.characters.push(singer.character);
         }
-        setVocalGroupRows(vocalGroups);
-    }, []);
+
+        return vocalGroups;
+    }, [song]);
 
     return (
         <>
@@ -124,7 +123,7 @@ export default function show({ song }: Props) {
                 </Link>
             </PageHeader>
             <div className="m-6">
-                <div className="ml-6">
+                <div>
                     <div>
                         楽曲種別 : <span>{song.type.name}</span>
                     </div>
@@ -136,9 +135,9 @@ export default function show({ song }: Props) {
                         <span>{song.release_date.replace(/-/g, '/')}</span>
                     </div>
                 </div>
-                {vocalGroupRows.length > 0 && (
+                <h2 className="mt-6 mb-6 text-xl font-bold">歌唱</h2>
+                {vocalGroupRows.length > 0 ? (
                     <>
-                        <h2 className="m-6 text-xl font-bold">歌唱</h2>
                         <table className="table">
                             <thead>
                                 <tr className="bg-sky-200">
@@ -184,8 +183,10 @@ export default function show({ song }: Props) {
                             </tbody>
                         </table>
                     </>
+                ) : (
+                    <div className="bg-gray-200 p-4">Inst. ver. Only</div>
                 )}
-                <h2 className="m-6 text-xl font-bold">難易度</h2>
+                <h2 className="mt-6 mb-6 text-xl font-bold">難易度</h2>
                 <table className="table">
                     <thead>
                         <tr>

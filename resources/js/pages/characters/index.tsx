@@ -1,6 +1,6 @@
-import PageHeader from '@/components/pageHeader';
 import { Link } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
+import PageHeader from '@/components/pageHeader';
 
 type Unit = {
     id: number;
@@ -18,35 +18,30 @@ type Character = {
     detail: Detail;
 };
 
-type Index = {
-    unit?: Unit;
-    character?: Character;
-};
-
 type Props = {
     characters: Character[];
 };
 
-export default function index({ characters }: Props) {
-    const [characterDataRows, setCharacterDataRows] = useState<Index[]>([]);
-
-    useEffect(() => {
-        const indexRows = [];
+export default function Characters({ characters }: Props) {
+    const characterDataRows = useMemo(() => {
+        const rows = [];
         let prevUnitId = -1;
 
         for (const character of characters) {
             if (prevUnitId != character.detail.unit.id) {
-                indexRows.push({
+                rows.push({
                     unit: character.detail.unit,
                 });
                 prevUnitId = character.detail.unit.id;
             }
-            indexRows.push({
+
+            rows.push({
                 character: character,
             });
         }
-        setCharacterDataRows(indexRows);
-    }, []);
+
+        return rows;
+    }, [characters]);
 
     return (
         <>

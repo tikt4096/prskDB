@@ -26,7 +26,7 @@ type Props = {
     character: Character;
 };
 
-export default function show({ character }: Props) {
+export default function CharacterDetail({ character }: Props) {
     return (
         <>
             <PageHeader caption={character.name}>
