@@ -63,7 +63,6 @@ export default function Characters({ characters }: Props) {
                                         style={{
                                             backgroundColor: row.unit?.color,
                                         }}
-                                        colSpan={2}
                                     >
                                         {row.unit?.name}
                                     </th>
