@@ -40,7 +40,7 @@ class CharacterSeeder extends Seeder
             ['name' => '天馬司', 'type_id' => 1],
             ['name' => '鳳えむ', 'type_id' => 1],
             ['name' => '草薙寧々', 'type_id' => 1],
-            ['name' => '神城類', 'type_id' => 1],
+            ['name' => '神代類', 'type_id' => 1],
             ['name' => '宵崎奏', 'type_id' => 1],
             ['name' => '朝比奈まふゆ', 'type_id' => 1],
             ['name' => '東雲絵名', 'type_id' => 1],
