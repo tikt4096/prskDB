@@ -54,34 +54,29 @@ export default function Characters({ characters }: Props) {
                 </Link>
             </PageHeader>
             <div className="m-6">
-                <table className="table">
-                    <tbody>
-                        {characterDataRows.map((row) => {
-                            return 'unit' in row ? (
-                                <tr>
-                                    <th
-                                        style={{
-                                            backgroundColor: row.unit?.color,
-                                        }}
-                                    >
-                                        {row.unit?.name}
-                                    </th>
-                                </tr>
-                            ) : (
-                                <tr>
-                                    <td>
-                                        <Link
-                                            href={`characters/${row.character?.id}`}
-                                            className="font-bold text-blue-500 hover:text-blue-600"
-                                        >
-                                            {row.character?.name}
-                                        </Link>
-                                    </td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
+                <div className="grid grid-cols-6 gap-1">
+                    {characterDataRows.map((row) => {
+                        return 'unit' in row ? (
+                            <div
+                                className="col-span-6 mt-4 border border-gray-200 p-2"
+                                style={{
+                                    backgroundColor: row.unit?.color,
+                                }}
+                            >
+                                {row.unit?.name}
+                            </div>
+                        ) : (
+                            <div className="border border-gray-200 p-2">
+                                <Link
+                                    href={`characters/${row.character?.id}`}
+                                    className="font-bold text-blue-500 hover:text-blue-600"
+                                >
+                                    {row.character?.name}
+                                </Link>
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
         </>
     );
