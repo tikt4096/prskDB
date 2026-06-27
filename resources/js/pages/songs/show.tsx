@@ -28,6 +28,22 @@ type Character = {
     characterToSongs: VocalType[];
 };
 
+type Creator = {
+    id: number;
+    name: string;
+};
+
+type CreateType = {
+    id: number;
+    name: string;
+};
+
+type CreatorToSong = {
+    id: number;
+    creator_id: number;
+    create_type: CreateType;
+};
+
 type Song = {
     id: number;
     name: string;
@@ -48,6 +64,8 @@ type Song = {
     release_date: string;
     characters: Character[];
     character_to_songs: CharacterToSong[];
+    creators: Creator[];
+    creator_to_songs: CreatorToSong[];
 };
 
 type Props = {
@@ -112,6 +130,13 @@ export default function SongDetail({ song }: Props) {
         return vocalGroups;
     }, [song]);
 
+    const creatorInfos = song.creator_to_songs.map((cts) => {
+        const creator = song.creators.find(
+            (creator) => creator.id === cts.creator_id,
+        )!;
+        return { ...cts, creator };
+    });
+
     return (
         <>
             <PageHeader caption={song.name}>
@@ -123,18 +148,31 @@ export default function SongDetail({ song }: Props) {
                 </Link>
             </PageHeader>
             <div className="m-6">
-                <div>
-                    <div>
-                        楽曲種別 : <span>{song.type.name}</span>
-                    </div>
-                    <div>
-                        担当ユニット : <span>{song.unit.name}</span>
-                    </div>
-                    <div>
-                        配信日 :{' '}
-                        <span>{song.release_date.replace(/-/g, '/')}</span>
-                    </div>
-                </div>
+                <h2 className="mt-6 mb-6 text-xl font-bold">楽曲情報</h2>
+                <table className="table">
+                    <tbody className="[&_th]:bg-sky-200">
+                        <tr>
+                            <th>楽曲種別</th>
+                            <td>{song.type.name}</td>
+                        </tr>
+                        {creatorInfos.map((info) => {
+                            return (
+                                <tr>
+                                    <th>{info.create_type.name}</th>
+                                    <td>{info.creator.name}</td>
+                                </tr>
+                            );
+                        })}
+                        <tr>
+                            <th>担当ユニット</th>
+                            <td>{song.unit.name}</td>
+                        </tr>
+                        <tr>
+                            <th>配信日</th>
+                            <td>{song.release_date.replace(/-/g, '/')}</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <h2 className="mt-6 mb-6 text-xl font-bold">歌唱</h2>
                 {vocalGroupRows.length > 0 ? (
                     <>

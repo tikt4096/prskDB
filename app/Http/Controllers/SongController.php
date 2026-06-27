@@ -22,7 +22,7 @@ class SongController extends Controller
 
     function show(Song $song)
     {
-        $song->load(['type', 'unit', 'characters', 'characterToSongs.vocalType']);
+        $song->load(['type', 'unit', 'characters', 'characterToSongs.vocalType', 'creators', 'creatorToSongs.createType']);
         return Inertia::render('songs/show', [
             'song' => $song
         ]);

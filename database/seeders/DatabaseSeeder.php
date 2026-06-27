@@ -28,7 +28,8 @@ class DatabaseSeeder extends Seeder
             CharacterSeeder::class,
             CharacterDetailSeeder::class,
             SongTypeSeeder::class,
-            VocalTypeSeeder::class
+            VocalTypeSeeder::class,
+            CreateTypeSeeder::class
         ]);
     }
 }
