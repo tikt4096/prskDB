@@ -25,4 +25,9 @@ class Song extends Model
     {
         return $this->hasMany(CharacterToSong::class);
     }
+
+    public function creators()
+    {
+        return $this->belongsToMany(Creator::class, 'creator_to_songs', 'song_id', 'creator_id');
+    }
 }
