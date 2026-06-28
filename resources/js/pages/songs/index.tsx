@@ -1,11 +1,18 @@
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
+import { useState } from 'react';
 import PageHeader from '@/components/pageHeader';
+import TextLink from '@/components/text-link';
+import Search from '@/components/search-form';
+import { Input } from '@/components/ui/input';
+import CheckBox from '@/components/checkbox';
 
 type SongType = {
+    id: number;
     name: string;
 };
 
 type Unit = {
+    id: number;
     name: string;
 };
 
@@ -16,11 +23,54 @@ type Song = {
     unit: Unit;
 };
 
-type Props = {
-    songs: Song[];
+type Filters = {
+    name?: string;
+    unit_ids?: number[];
+    song_type_ids?: number[];
 };
 
-export default function Songs({ songs }: Props) {
+type Props = {
+    songs: Song[];
+    units: Unit[];
+    song_types: SongType[];
+    filters: Filters;
+};
+
+type SearchConditions = {
+    name: string;
+    unit_ids: number[];
+    song_type_ids: number[];
+};
+
+function search(conditions: SearchConditions) {
+    let request = {};
+    if (conditions.name) {
+        request = {
+            name: conditions.name,
+        };
+    }
+    if (conditions.unit_ids.length > 0) {
+        request = {
+            ...request,
+            unit_ids: conditions.unit_ids,
+        };
+    }
+    if (conditions.song_type_ids.length > 0) {
+        request = {
+            ...request,
+            song_type_ids: conditions.song_type_ids,
+        };
+    }
+    router.get('/songs', request);
+}
+
+export default function Songs({ songs, units, song_types, filters }: Props) {
+    const [keyword, setKeyword] = useState(filters?.name ?? '');
+    const [unitIds, setUnitIds] = useState<number[]>(filters?.unit_ids ?? []);
+    const [songTypeIds, setSongTypeIds] = useState<number[]>(
+        filters?.song_type_ids ?? [],
+    );
+
     return (
         <>
             <PageHeader caption="楽曲一覧">
@@ -32,35 +82,143 @@ export default function Songs({ songs }: Props) {
                 </Link>
             </PageHeader>
             <div className="m-6">
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>曲名</th>
-                            <th>楽曲種別</th>
-                            <th>ユニット</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {songs.map((song) => {
-                            return (
-                                <tr>
-                                    <td>{song.id}</td>
-                                    <td>
-                                        <Link
-                                            href={`songs/${song.id}`}
-                                            className="font-bold text-blue-500 hover:text-blue-600"
-                                        >
-                                            {song.name}
-                                        </Link>
-                                    </td>
-                                    <td>{song.type.name}</td>
-                                    <td>{song.unit.name}</td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
+                <div className="flex justify-center">
+                    <Search
+                        onSearch={() =>
+                            search({
+                                name: keyword,
+                                unit_ids: unitIds,
+                                song_type_ids: songTypeIds,
+                            })
+                        }
+                        onClear={() => {
+                            setKeyword('');
+                            setUnitIds([]);
+                            setSongTypeIds([]);
+                        }}
+                        contentClassName="mb-5"
+                        className="w-full"
+                    >
+                        <div className="mb-5 flex items-center justify-center">
+                            <div className="mr-5 font-bold">曲名</div>
+                            <Input
+                                type="text"
+                                name="song_title"
+                                className="w-3/4"
+                                value={keyword}
+                                onChange={(e) => setKeyword(e.target.value)}
+                            />
+                        </div>
+                        <div className="flex justify-around">
+                            <div className="w-1/3">
+                                <div className="bg-gray-300 p-2">ユニット</div>
+                                {units.map((unit) => {
+                                    return (
+                                        <div className="my-2 flex items-center">
+                                            <CheckBox
+                                                key={unit.id}
+                                                checked={unitIds.includes(
+                                                    unit.id,
+                                                )}
+                                                label={unit.name}
+                                                onChange={(e) => {
+                                                    if (e.target.checked) {
+                                                        setUnitIds((prev) => [
+                                                            ...prev,
+                                                            unit.id,
+                                                        ]);
+                                                    } else {
+                                                        setUnitIds((prev) =>
+                                                            prev.filter(
+                                                                (id) =>
+                                                                    id !==
+                                                                    unit.id,
+                                                            ),
+                                                        );
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                            <div className="w-1/3">
+                                <div className="bg-gray-300 p-2">楽曲種別</div>
+                                {song_types.map((songType) => {
+                                    return (
+                                        <div className="my-2 flex items-center">
+                                            <CheckBox
+                                                key={songType.id}
+                                                checked={songTypeIds.includes(
+                                                    songType.id,
+                                                )}
+                                                label={songType.name}
+                                                onChange={(e) => {
+                                                    if (e.target.checked) {
+                                                        setSongTypeIds(
+                                                            (prev) => [
+                                                                ...prev,
+                                                                songType.id,
+                                                            ],
+                                                        );
+                                                    } else {
+                                                        setSongTypeIds((prev) =>
+                                                            prev.filter(
+                                                                (id) =>
+                                                                    id !==
+                                                                    songType.id,
+                                                            ),
+                                                        );
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    </Search>
+                </div>
+                <div className="flex justify-center">
+                    {songs.length > 0 ? (
+                        <div>
+                            <div className="m-4">{songs.length}件ヒット</div>
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>曲名</th>
+                                        <th>楽曲種別</th>
+                                        <th>ユニット</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {songs.map((song) => {
+                                        return (
+                                            <tr>
+                                                <td>{song.id}</td>
+                                                <td>
+                                                    <TextLink
+                                                        href={`songs/${song.id}`}
+                                                        className="text-blue-500"
+                                                    >
+                                                        {song.name}
+                                                    </TextLink>
+                                                </td>
+                                                <td>{song.type.name}</td>
+                                                <td>{song.unit.name}</td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                    ) : (
+                        <div className="w-full bg-gray-300 p-5 text-center font-bold">
+                            該当曲なし
+                        </div>
+                    )}
+                </div>
             </div>
         </>
     );

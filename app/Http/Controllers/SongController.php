@@ -3,20 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Models\Song;
+use App\Models\SongType;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class SongController extends Controller
 {
-    function index()
+    function index(Request $request)
     {
         $songs = Song::with([
             'type',
             'unit'
-        ])->get();
+        ])
+            ->name($request->name)
+            ->unitIds($request->unit_ids)
+            ->songTypeIds($request->song_type_ids)
+            ->get();
 
         return Inertia::render('songs/index', [
-            'songs' => $songs
+            'songs' => $songs,
+            'units' => Unit::all(),
+            'song_types' => SongType::all(),
+            'filters' => [
+                'name' => $request->name,
+                'unit_ids' => collect($request->unit_ids)
+                    ->map(fn($id) => (int) $id)
+                    ->all(),
+                'song_type_ids' => collect($request->song_type_ids)
+                    ->map(fn($id) => (int)$id)
+                    ->all()
+            ]
         ]);
     }
 
