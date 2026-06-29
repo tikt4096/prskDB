@@ -128,7 +128,7 @@ export default function CharacterDetail({ character }: Props) {
                 <div className="flex">
                     <div className="w-120">
                         <img
-                            src={`../images/characters/${imgFileName}`}
+                            src={`/images/characters/${imgFileName}`}
                             alt={character.name}
                         />
                     </div>
