@@ -1,7 +1,6 @@
 @import 'tailwindcss';
 
 .table {
-    margin-left: 20px;
     border: 1px solid #808080;
     border-collapse: collapse;
 }
