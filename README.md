@@ -1,4 +1,5 @@
 # プロセカDB
+
 project SEKAI COLORFUL STAGE! feat.初音ミクのデータベース
 
 - 公式サイト ; https://pjsekai.sega.jp/
@@ -9,9 +10,19 @@ project SEKAI COLORFUL STAGE! feat.初音ミクのデータベース
 - 公式TikTok : https://www.tiktok.com/@pj_sekai_colorfulstage
 
 ## サーバ起動
+
 `composer run dev`
 
+### 他端末からの接続許可時
+
+- バックエンド :
+  `php artisan serve --host=0.0.0.0 --port=8000`
+
+- フロントエンド :
+  `npm run dev -- --host`
+
 ## 開発環境
+
 - Laravel 13.12.0
 - React 19.2.7
 - Inertia 3.0.0
