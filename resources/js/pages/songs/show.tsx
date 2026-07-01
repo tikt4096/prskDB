@@ -150,7 +150,7 @@ export default function SongDetail({ song }: Props) {
             <div className="m-6">
                 <h2 className="mt-6 mb-6 text-xl font-bold">楽曲情報</h2>
                 <table className="table">
-                    <tbody className="[&_th]:bg-sky-200">
+                    <tbody className="[&_th]:bg-sky-200 [&_th]:text-black">
                         <tr>
                             <th>楽曲種別</th>
                             <td>{song.type.name}</td>
@@ -178,7 +178,7 @@ export default function SongDetail({ song }: Props) {
                     <>
                         <table className="table">
                             <thead>
-                                <tr className="bg-sky-200">
+                                <tr className="bg-sky-200 [&>th]:text-black">
                                     <th>音源</th>
                                     <th>キャラクター</th>
                                 </tr>

@@ -117,7 +117,7 @@ export default function Characters({ characters }: Props) {
                     {characterDataRows.map((row) => {
                         return 'unit' in row ? (
                             <div
-                                className="col-span-2 mt-4 border border-gray-200 p-2 md:col-span-6"
+                                className={`col-span-2 mt-4 border border-gray-200 p-2 md:col-span-6 ${row.unit?.name === 'Virtual Singer' ? 'text-black' : 'text-white'}`}
                                 style={{
                                     backgroundColor: row.unit?.color,
                                 }}
