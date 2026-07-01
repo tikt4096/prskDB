@@ -113,11 +113,11 @@ export default function Characters({ characters }: Props) {
                 </Link>
             </PageHeader>
             <div className="m-6">
-                <div className="grid grid-cols-6 gap-1">
+                <div className="grid grid-cols-2 gap-1 md:grid-cols-6">
                     {characterDataRows.map((row) => {
                         return 'unit' in row ? (
                             <div
-                                className="col-span-6 mt-4 border border-gray-200 p-2"
+                                className="col-span-2 mt-4 border border-gray-200 p-2 md:col-span-6"
                                 style={{
                                     backgroundColor: row.unit?.color,
                                 }}

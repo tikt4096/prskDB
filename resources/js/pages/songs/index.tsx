@@ -100,7 +100,7 @@ export default function Songs({ songs, units, song_types, filters }: Props) {
                         className="w-full"
                     >
                         <div className="mb-5 flex items-center justify-center">
-                            <div className="mr-5 font-bold">曲名</div>
+                            <div className="mr-2 font-bold md:mr-5">曲名</div>
                             <Input
                                 type="text"
                                 name="song_title"
@@ -109,8 +109,8 @@ export default function Songs({ songs, units, song_types, filters }: Props) {
                                 onChange={(e) => setKeyword(e.target.value)}
                             />
                         </div>
-                        <div className="flex justify-around">
-                            <div className="w-1/3">
+                        <div className="md:flex md:justify-around">
+                            <div className="md:w-1/3">
                                 <div className="bg-gray-300 p-2">ユニット</div>
                                 {units.map((unit) => {
                                     return (
@@ -142,7 +142,7 @@ export default function Songs({ songs, units, song_types, filters }: Props) {
                                     );
                                 })}
                             </div>
-                            <div className="w-1/3">
+                            <div className="md:w-1/3">
                                 <div className="bg-gray-300 p-2">楽曲種別</div>
                                 {song_types.map((songType) => {
                                     return (
@@ -181,10 +181,10 @@ export default function Songs({ songs, units, song_types, filters }: Props) {
                 </div>
                 <div className="flex justify-center">
                     {songs.length > 0 ? (
-                        <div>
+                        <div className="overflow-auto">
                             <div className="m-4">{songs.length}件ヒット</div>
                             <table className="table">
-                                <thead>
+                                <thead className="[&_th]:text-sm [&_th]:md:text-base">
                                     <tr>
                                         <th>ID</th>
                                         <th>曲名</th>
@@ -192,7 +192,7 @@ export default function Songs({ songs, units, song_types, filters }: Props) {
                                         <th>ユニット</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody className="[&_td]:text-sm [&_td]:md:text-base">
                                     {songs.map((song) => {
                                         return (
                                             <tr>
