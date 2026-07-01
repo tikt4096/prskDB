@@ -142,7 +142,7 @@ export default function SongDetail({ song }: Props) {
             <PageHeader caption={song.name}>
                 <Link
                     href="/songs"
-                    className="rounded bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
+                    className="min-w-17 rounded bg-gray-500 px-4 py-2 text-center text-white hover:bg-gray-600"
                 >
                     戻る
                 </Link>
@@ -225,39 +225,84 @@ export default function SongDetail({ song }: Props) {
                     <div className="bg-gray-200 p-4">Inst. ver. Only</div>
                 )}
                 <h2 className="mt-6 mb-6 text-xl font-bold">難易度</h2>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th className="bg-green-300">EASY</th>
-                            <th className="bg-cyan-300">NORMAL</th>
-                            <th className="bg-yellow-300">HARD</th>
-                            <th className="bg-red-300">EXPERT</th>
-                            <th className="bg-violet-300">MASTER</th>
-                            <th className="bg-pink-300">APPEND</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th>難易度</th>
-                            <td>{song.difficulty_level_easy}</td>
-                            <td>{song.difficulty_level_normal}</td>
-                            <td>{song.difficulty_level_hard}</td>
-                            <td>{song.difficulty_level_expert}</td>
-                            <td>{song.difficulty_level_master}</td>
-                            <td>{song.difficulty_level_append ?? '-'}</td>
-                        </tr>
-                        <tr>
-                            <th>コンボ数</th>
-                            <td>{song.combo_count_easy}</td>
-                            <td>{song.combo_count_normal}</td>
-                            <td>{song.combo_count_hard}</td>
-                            <td>{song.combo_count_expert}</td>
-                            <td>{song.combo_count_master}</td>
-                            <td>{song.combo_count_append ?? '-'}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div className="hidden md:block">
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th className="bg-green-300">EASY</th>
+                                <th className="bg-cyan-300">NORMAL</th>
+                                <th className="bg-yellow-300">HARD</th>
+                                <th className="bg-red-300">EXPERT</th>
+                                <th className="bg-violet-300">MASTER</th>
+                                <th className="bg-pink-300">APPEND</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>難易度</th>
+                                <td>{song.difficulty_level_easy}</td>
+                                <td>{song.difficulty_level_normal}</td>
+                                <td>{song.difficulty_level_hard}</td>
+                                <td>{song.difficulty_level_expert}</td>
+                                <td>{song.difficulty_level_master}</td>
+                                <td>{song.difficulty_level_append ?? '-'}</td>
+                            </tr>
+                            <tr>
+                                <th>コンボ数</th>
+                                <td>{song.combo_count_easy}</td>
+                                <td>{song.combo_count_normal}</td>
+                                <td>{song.combo_count_hard}</td>
+                                <td>{song.combo_count_expert}</td>
+                                <td>{song.combo_count_master}</td>
+                                <td>{song.combo_count_append ?? '-'}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="md:hidden">
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>難易度</th>
+                                <th>コンボ数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th className="bg-green-300">EASY</th>
+                                <td>{song.difficulty_level_easy}</td>
+                                <td>{song.combo_count_easy}</td>
+                            </tr>
+                            <tr>
+                                <th className="bg-cyan-300">NORMAL</th>
+                                <td>{song.difficulty_level_normal}</td>
+                                <td>{song.combo_count_normal}</td>
+                            </tr>
+                            <tr>
+                                <th className="bg-yellow-300">HARD</th>
+                                <td>{song.difficulty_level_hard}</td>
+                                <td>{song.combo_count_hard}</td>
+                            </tr>
+                            <tr>
+                                <th className="bg-red-300">EXPERT</th>
+                                <td>{song.difficulty_level_expert}</td>
+                                <td>{song.combo_count_expert}</td>
+                            </tr>
+                            <tr>
+                                <th className="bg-violet-300">MASTER</th>
+                                <td>{song.difficulty_level_master}</td>
+                                <td>{song.combo_count_master}</td>
+                            </tr>
+                            <tr>
+                                <th className="bg-pink-300">APPEND</th>
+                                <td>{song.difficulty_level_append ?? '-'}</td>
+                                <td>{song.combo_count_append ?? '-'}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </>
     );

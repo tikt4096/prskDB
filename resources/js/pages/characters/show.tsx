@@ -125,15 +125,16 @@ export default function CharacterDetail({ character }: Props) {
                 </Link>
             </PageHeader>
             <div className="m-6">
-                <div className="flex">
-                    <div className="w-120">
+                <div className="md:flex">
+                    <div className="flex justify-center">
                         <img
+                            className="w-60 md:w-120"
                             src={`/images/characters/${imgFileName}`}
                             alt={character.name}
                         />
                     </div>
-                    <table className="table w-300">
-                        <tbody className="[&_th]:w-35">
+                    <table className="table w-full md:w-300">
+                        <tbody className="md:w-35 [&_th]:w-25">
                             <tr>
                                 <th>名前</th>
                                 <td>{character.name}</td>
