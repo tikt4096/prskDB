@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Song;
 use App\Models\SongType;
 use App\Models\Unit;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -40,8 +41,15 @@ class SongController extends Controller
     function show(Song $song)
     {
         $song->load(['type', 'unit', 'characters', 'characterToSongs.vocalType', 'creators', 'creatorToSongs.createType']);
+        $comments = Comment::where('relation_id', $song->id)
+            ->where('relation_name', 'songs')
+            ->whereNull('reply_id')
+            ->with('replies')
+            ->get();
+
         return Inertia::render('songs/show', [
-            'song' => $song
+            'song' => $song,
+            'comments' => $comments
         ]);
     }
 }
