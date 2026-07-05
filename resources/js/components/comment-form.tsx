@@ -45,11 +45,11 @@ export default function CommentForm({
             preserveScroll: true,
             onSuccess: () => {
                 setData('content', '');
+                if (onSubmit) {
+                    onSubmit();
+                }
             },
         });
-        if (onSubmit) {
-            onSubmit();
-        }
     };
 
     return (
