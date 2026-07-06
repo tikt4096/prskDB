@@ -10,7 +10,7 @@ Route::get('/songs', [SongController::class, 'index']);
 Route::get('/songs/{song}', [SongController::class, 'show'])->name('songs.show');
 
 Route::get('/characters', [CharacterController::class, 'index']);
-Route::get('/characters/{character}', [CharacterController::class, 'show']);
+Route::get('/characters/{character}', [CharacterController::class, 'show'])->name('characters.show');
 
 Route::post('/comment/post', [CommentController::class, 'post']);
 

@@ -1,6 +1,8 @@
 import { Link } from '@inertiajs/react';
 import PageHeader from '@/components/pageHeader';
 import { CHARACTER_IDS } from '@/consts';
+import CommentList, { Comment } from '@/components/comment-list';
+import CommentForm from '@/components/comment-form';
 
 type Unit = {
     id: number;
@@ -29,9 +31,10 @@ type Character = {
 
 type Props = {
     character: Character;
+    comments: Comment[];
 };
 
-export default function CharacterDetail({ character }: Props) {
+export default function CharacterDetail({ character, comments }: Props) {
     let imgFileName = '';
     switch (character.id) {
         case CHARACTER_IDS.MIKU:
@@ -177,6 +180,17 @@ export default function CharacterDetail({ character }: Props) {
                         </tbody>
                     </table>
                 </div>
+                <h2 className="mt-6 mb-6 text-xl font-bold">コメント</h2>
+                <CommentList
+                    comments={comments}
+                    relationId={character.id}
+                    relationName="characters"
+                />
+                <h2 className="mt-6 mb-6 text-xl font-bold">コメント投稿</h2>
+                <CommentForm
+                    relationId={character.id}
+                    relationName="characters"
+                />
             </div>
         </>
     );
