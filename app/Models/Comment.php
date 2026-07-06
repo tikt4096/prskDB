@@ -24,11 +24,6 @@ class Comment extends Model
         'post_date'
     ];
 
-    public function song()
-    {
-        return $this->belongsTo(Song::class);
-    }
-
     // 返信先コメント
     public function replyTo()
     {

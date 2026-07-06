@@ -37,11 +37,6 @@ class Song extends Model
         return $this->hasMany(CreatorToSong::class);
     }
 
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
-
     public function scopeName(Builder $query, ?string $name)
     {
         if ($name) {
