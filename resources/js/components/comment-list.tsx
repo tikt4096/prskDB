@@ -39,6 +39,8 @@ export default function CommentList({
             />
         ))
     ) : (
-        <div className="my-5 bg-gray-200 p-4">コメントはまだありません。</div>
+        <div className="my-5 bg-gray-200 p-4 text-black">
+            コメントはまだありません。
+        </div>
     );
 }

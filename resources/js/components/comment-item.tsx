@@ -44,7 +44,7 @@ export default function CommentItem({
                         ` bg-gray-200 p-2 [&>div]:mr-2`
                     }
                 >
-                    <div>{`${replyNum}${index + 1} : ${comment.name}`}</div>
+                    <div className="text-black">{`${replyNum}${index + 1} : ${comment.name}`}</div>
                     {isReply ? (
                         <div className="text-sm text-gray-600">
                             {replyTo}への返信
@@ -56,7 +56,7 @@ export default function CommentItem({
                         {comment.post_date.toLocaleString().replace(/-/g, '/')}
                     </div>
                 </div>
-                <div className="bg-gray-100 p-2">
+                <div className="bg-gray-100 p-2 text-black">
                     <div className="whitespace-pre-wrap">{comment.content}</div>
                     <div className="mt-2">
                         <span

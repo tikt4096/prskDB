@@ -58,7 +58,7 @@ export default function CommentForm({
     };
 
     return (
-        <div className="mt-2 border border-gray-400 bg-white p-6">
+        <div className="mt-2 border border-gray-400 bg-white p-6 text-black">
             {replyTo && replyTo !== '' ? (
                 <div className="my-2 font-bold">
                     コメントNo.{replyTo}への返信

@@ -127,7 +127,7 @@ export default function CharacterDetail({ character, comments }: Props) {
                     戻る
                 </Link>
             </PageHeader>
-            <div className="m-6">
+            <div className="m-6 pb-40">
                 <div className="md:flex">
                     <div className="flex justify-center">
                         <img
