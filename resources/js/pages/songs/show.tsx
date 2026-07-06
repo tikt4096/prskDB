@@ -1,6 +1,8 @@
 import { Link } from '@inertiajs/react';
 import { useMemo } from 'react';
 import PageHeader from '@/components/pageHeader';
+import CommentList, { Comment } from '@/components/comment-list';
+import CommentForm from '@/components/comment-form';
 
 type SongType = {
     name: string;
@@ -70,6 +72,7 @@ type Song = {
 
 type Props = {
     song: Song;
+    comments: Comment[];
 };
 
 type SingerGroup = {
@@ -82,7 +85,7 @@ type VocalGroup = {
     singerGroups: SingerGroup[];
 };
 
-export default function SongDetail({ song }: Props) {
+export default function SongDetail({ song, comments }: Props) {
     const vocalGroupRows = useMemo(() => {
         const singers = song.character_to_songs.map((s) => {
             const character = song.characters.find(
@@ -147,7 +150,7 @@ export default function SongDetail({ song }: Props) {
                     戻る
                 </Link>
             </PageHeader>
-            <div className="m-6">
+            <div className="m-6 pb-40">
                 <h2 className="mt-6 mb-6 text-xl font-bold">楽曲情報</h2>
                 <table className="table">
                     <tbody className="[&_th]:bg-sky-200 [&_th]:text-black">
@@ -303,6 +306,14 @@ export default function SongDetail({ song }: Props) {
                         </tbody>
                     </table>
                 </div>
+                <h2 className="mt-6 mb-6 text-xl font-bold">コメント</h2>
+                <CommentList
+                    comments={comments}
+                    relationId={song.id}
+                    relationName="songs"
+                />
+                <h2 className="mt-6 mb-6 text-xl font-bold">コメント投稿</h2>
+                <CommentForm relationId={song.id} relationName="songs" />
             </div>
         </>
     );

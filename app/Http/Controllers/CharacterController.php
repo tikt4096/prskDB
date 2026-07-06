@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Character;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -27,8 +28,15 @@ class CharacterController extends Controller
     {
         $character->load(['detail.unit', 'detail.gender']);
 
+        $comments = Comment::where('relation_id', $character->id)
+            ->where('relation_name', 'characters')
+            ->whereNull('reply_id')
+            ->with('replies')
+            ->get();
+
         return Inertia::render('characters/show', [
-            'character' => $character
+            'character' => $character,
+            'comments' => $comments
         ]);
     }
 }
