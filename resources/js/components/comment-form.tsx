@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { toast } from 'sonner';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { useForm } from '@inertiajs/react';
@@ -45,9 +46,13 @@ export default function CommentForm({
             preserveScroll: true,
             onSuccess: () => {
                 setData('content', '');
+                toast.success('コメントを投稿しました。');
                 if (onSubmit) {
                     onSubmit();
                 }
+            },
+            onError: () => {
+                toast.error('コメント投稿に失敗しました。');
             },
         });
     };
