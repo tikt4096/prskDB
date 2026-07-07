@@ -41,7 +41,7 @@ export default function CommentItem({
                         (isReply
                             ? 'md:flex md:items-center'
                             : `flex items-center`) +
-                        ` bg-gray-200 p-2 [&>div]:mr-2`
+                        ` bg-gray-200 p-2 dark:bg-gray-300 [&>div]:mr-2`
                     }
                 >
                     <div className="text-black">{`${replyNum}${index + 1} : ${comment.name}`}</div>
@@ -56,7 +56,7 @@ export default function CommentItem({
                         {comment.post_date.toLocaleString().replace(/-/g, '/')}
                     </div>
                 </div>
-                <div className="bg-gray-100 p-2 text-black">
+                <div className="bg-gray-100 p-2 text-black dark:bg-gray-400">
                     <div className="whitespace-pre-wrap">{comment.content}</div>
                     <div className="mt-2">
                         <span

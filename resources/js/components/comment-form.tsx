@@ -58,7 +58,7 @@ export default function CommentForm({
     };
 
     return (
-        <div className="mt-2 border border-gray-400 bg-white p-6 text-black">
+        <div className="mt-2 border border-gray-400 bg-white p-6 text-black dark:bg-gray-300">
             {replyTo && replyTo !== '' ? (
                 <div className="my-2 font-bold">
                     コメントNo.{replyTo}への返信
@@ -67,8 +67,9 @@ export default function CommentForm({
                 <></>
             )}
             <div className="mb-4">
-                <div className="mb-2">名前</div>
+                <div className="mb-2 font-bold">名前</div>
                 <Input
+                    className="dark:bg-gray-200"
                     type="text"
                     value={data.name}
                     onChange={(e) => setData('name', e.target.value)}
@@ -76,11 +77,13 @@ export default function CommentForm({
             </div>
             <div>
                 {errors.content && (
-                    <div className="text-red-400">{errors.content}</div>
+                    <div className="font-bold text-red-400">
+                        {errors.content}
+                    </div>
                 )}
-                <div className="mb-2">本文</div>
+                <div className="mb-2 font-bold">本文</div>
                 <textarea
-                    className="focus-visible:border-ring focus-visible:ring-ring/50 h-40 w-full rounded-md border focus-visible:ring-[3px]"
+                    className="focus-visible:border-ring focus-visible:ring-ring/50 h-40 w-full rounded-md border focus-visible:ring-[3px] dark:bg-gray-200"
                     value={data.content}
                     onChange={(e) => setData('content', e.target.value)}
                 ></textarea>

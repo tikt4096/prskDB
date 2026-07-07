@@ -225,7 +225,9 @@ export default function SongDetail({ song, comments }: Props) {
                         </table>
                     </>
                 ) : (
-                    <div className="bg-gray-200 p-4">Inst. ver. Only</div>
+                    <div className="bg-gray-200 p-4 text-black">
+                        Inst. ver. Only
+                    </div>
                 )}
                 <h2 className="mt-6 mb-6 text-xl font-bold">難易度</h2>
                 <div className="hidden md:block">

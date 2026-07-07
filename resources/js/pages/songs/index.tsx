@@ -111,7 +111,9 @@ export default function Songs({ songs, units, song_types, filters }: Props) {
                         </div>
                         <div className="md:flex md:justify-around">
                             <div className="md:w-1/3">
-                                <div className="bg-gray-300 p-2">ユニット</div>
+                                <div className="bg-gray-300 p-2 text-black">
+                                    ユニット
+                                </div>
                                 {units.map((unit) => {
                                     return (
                                         <div className="my-2 flex items-center">
@@ -143,7 +145,9 @@ export default function Songs({ songs, units, song_types, filters }: Props) {
                                 })}
                             </div>
                             <div className="md:w-1/3">
-                                <div className="bg-gray-300 p-2">楽曲種別</div>
+                                <div className="bg-gray-300 p-2 text-black">
+                                    楽曲種別
+                                </div>
                                 {song_types.map((songType) => {
                                     return (
                                         <div className="my-2 flex items-center">

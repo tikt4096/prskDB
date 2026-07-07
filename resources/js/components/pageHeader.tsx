@@ -17,7 +17,7 @@ export default function PageHeader({
     return (
         <>
             {noTitle ? <></> : <Head title={title ?? caption} />}
-            <header className="mb-6 flex items-center justify-between bg-gray-300 pr-4 pl-4">
+            <header className="mb-6 flex items-center justify-between bg-gray-300 pr-4 pl-4 text-black">
                 <Header>{caption}</Header>
                 {children ? (
                     <div className="flex gap-2">{children}</div>

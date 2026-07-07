@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 .table {
     border: 1px solid #808080;
     border-collapse: collapse;
