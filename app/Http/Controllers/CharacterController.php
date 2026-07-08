@@ -26,7 +26,7 @@ class CharacterController extends Controller
 
     function show(Character $character)
     {
-        $character->load(['detail.unit', 'detail.gender']);
+        $character->load(['detail.unit', 'detail.gender', 'songs']);
 
         $comments = Comment::where('relation_id', $character->id)
             ->where('relation_name', 'characters')

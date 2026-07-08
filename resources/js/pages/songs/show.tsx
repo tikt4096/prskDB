@@ -1,8 +1,9 @@
 import { Link } from '@inertiajs/react';
 import { useMemo } from 'react';
-import PageHeader from '@/components/pageHeader';
-import CommentList, { Comment } from '@/components/comment-list';
 import CommentForm from '@/components/comment-form';
+import type { Comment } from '@/components/comment-list';
+import CommentList from '@/components/comment-list';
+import PageHeader from '@/components/pageHeader';
 
 type SongType = {
     name: string;
@@ -46,7 +47,7 @@ type CreatorToSong = {
     create_type: CreateType;
 };
 
-type Song = {
+export type Song = {
     id: number;
     name: string;
     type: SongType;
@@ -137,6 +138,7 @@ export default function SongDetail({ song, comments }: Props) {
         const creator = song.creators.find(
             (creator) => creator.id === cts.creator_id,
         )!;
+
         return { ...cts, creator };
     });
 

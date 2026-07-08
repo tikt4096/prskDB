@@ -1,8 +1,8 @@
+import { useForm } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { useForm } from '@inertiajs/react';
 
 type Props = {
     replyId?: number;
@@ -39,7 +39,7 @@ export default function CommentForm({
             name: data.name,
             content: data.content,
         });
-    }, [relationId, relationName, replyId, data.name, data.content]);
+    }, [setData, relationId, relationName, replyId, data.name, data.content]);
 
     const handleSubmit = () => {
         post('/comment/post', {
@@ -47,6 +47,7 @@ export default function CommentForm({
             onSuccess: () => {
                 setData('content', '');
                 toast.success('コメントを投稿しました。');
+
                 if (onSubmit) {
                     onSubmit();
                 }

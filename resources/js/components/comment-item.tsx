@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Comment } from './comment-list';
+import { useState } from 'react';
 import CommentForm from './comment-form';
+import type { Comment } from './comment-list';
 import CommentList from './comment-list';
 
 type Props = {
