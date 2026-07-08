@@ -46,7 +46,7 @@ type CreatorToSong = {
     create_type: CreateType;
 };
 
-type Song = {
+export type Song = {
     id: number;
     name: string;
     type: SongType;
