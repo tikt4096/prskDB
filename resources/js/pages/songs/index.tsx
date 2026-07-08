@@ -1,10 +1,10 @@
 import { Link, router } from '@inertiajs/react';
 import { useState } from 'react';
-import PageHeader from '@/components/pageHeader';
-import TextLink from '@/components/text-link';
-import Search from '@/components/search-form';
-import { Input } from '@/components/ui/input';
 import CheckBox from '@/components/checkbox';
+import PageHeader from '@/components/pageHeader';
+import Search from '@/components/search-form';
+import TextLink from '@/components/text-link';
+import { Input } from '@/components/ui/input';
 
 type SongType = {
     id: number;
@@ -44,23 +44,27 @@ type SearchConditions = {
 
 function search(conditions: SearchConditions) {
     let request = {};
+
     if (conditions.name) {
         request = {
             name: conditions.name,
         };
     }
+
     if (conditions.unit_ids.length > 0) {
         request = {
             ...request,
             unit_ids: conditions.unit_ids,
         };
     }
+
     if (conditions.song_type_ids.length > 0) {
         request = {
             ...request,
             song_type_ids: conditions.song_type_ids,
         };
     }
+
     router.get('/songs', request);
 }
 

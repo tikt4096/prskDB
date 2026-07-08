@@ -1,13 +1,14 @@
 import { Link } from '@inertiajs/react';
-import PageHeader from '@/components/pageHeader';
-import { CHARACTER_IDS } from '@/consts';
-import CommentList, { Comment } from '@/components/comment-list';
-import CommentForm from '@/components/comment-form';
-import { Song } from '../songs/show';
-import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
-import { Button } from '@/components/ui/button';
+import { useEffect, useState } from 'react';
+import CommentForm from '@/components/comment-form';
+import type { Comment } from '@/components/comment-list';
+import CommentList from '@/components/comment-list';
+import PageHeader from '@/components/pageHeader';
 import TextLink from '@/components/text-link';
+import { Button } from '@/components/ui/button';
+import { CHARACTER_IDS } from '@/consts';
+import type { Song } from '../songs/show';
 
 type Unit = {
     id: number;
@@ -60,6 +61,7 @@ export default function CharacterDetail({ character, comments }: Props) {
     }, []);
 
     let imgFileName = '';
+
     switch (character.id) {
         case CHARACTER_IDS.MIKU:
             imgFileName = 'miku.png';
@@ -142,9 +144,11 @@ export default function CharacterDetail({ character, comments }: Props) {
     }
 
     const songs: Song[] = [];
+
     // ボーカルタイプによる重複排除
     for (const song of character.songs) {
         const existence = songs.find((s) => s.name === song.name);
+
         if (!existence) {
             songs.push(song);
         }
@@ -240,6 +244,7 @@ export default function CharacterDetail({ character, comments }: Props) {
                                 Math.floor(index / cols) % 2 === 0
                                     ? 'bg-gray-200 dark:bg-gray-500'
                                     : 'bg-white dark:bg-gray-700';
+
                             return (
                                 <div key={index} className={`p-2 ${bg}`}>
                                     <TextLink
