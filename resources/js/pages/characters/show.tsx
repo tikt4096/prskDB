@@ -4,7 +4,9 @@ import { useEffect, useState } from 'react';
 import CommentForm from '@/components/comment-form';
 import type { Comment } from '@/components/comment-list';
 import CommentList from '@/components/comment-list';
+import PageBody from '@/components/page-body';
 import PageHeader from '@/components/pageHeader';
+import SubTitle from '@/components/sub-title';
 import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { CHARACTER_IDS } from '@/consts';
@@ -164,7 +166,7 @@ export default function CharacterDetail({ character, comments }: Props) {
                     戻る
                 </Link>
             </PageHeader>
-            <div className="m-6 pb-40">
+            <PageBody>
                 <div className="md:flex">
                     <div className="flex justify-center">
                         <img
@@ -217,7 +219,7 @@ export default function CharacterDetail({ character, comments }: Props) {
                         </tbody>
                     </table>
                 </div>
-                <h2 className="my-6 text-xl font-bold">楽曲</h2>
+                <SubTitle level="h2">楽曲</SubTitle>
                 <div className="flex justify-center">
                     <Button
                         className="mb-2 w-1/2 cursor-pointer rounded border border-blue-200 bg-blue-300 px-2 py-1 transition duration-300 hover:bg-blue-400 md:w-1/3"
@@ -258,18 +260,18 @@ export default function CharacterDetail({ character, comments }: Props) {
                         })}
                     </div>
                 </motion.div>
-                <h2 className="mt-6 mb-6 text-xl font-bold">コメント</h2>
+                <SubTitle level="h2">コメント</SubTitle>
                 <CommentList
                     comments={comments}
                     relationId={character.id}
                     relationName="characters"
                 />
-                <h2 className="mt-6 mb-6 text-xl font-bold">コメント投稿</h2>
+                <SubTitle level="h2">コメント投稿</SubTitle>
                 <CommentForm
                     relationId={character.id}
                     relationName="characters"
                 />
-            </div>
+            </PageBody>
         </>
     );
 }

@@ -1,10 +1,12 @@
 import { Link } from '@inertiajs/react';
+import { motion } from 'motion/react';
 import { useMemo, useState } from 'react';
 import CommentForm from '@/components/comment-form';
 import type { Comment } from '@/components/comment-list';
 import CommentList from '@/components/comment-list';
+import PageBody from '@/components/page-body';
 import PageHeader from '@/components/pageHeader';
-import { motion } from 'motion/react';
+import SubTitle from '@/components/sub-title';
 import { Button } from '@/components/ui/button';
 
 type SongType = {
@@ -167,8 +169,8 @@ export default function SongDetail({ song, comments }: Props) {
                     戻る
                 </Link>
             </PageHeader>
-            <div className="m-6 pb-40">
-                <h2 className="mt-6 mb-6 text-xl font-bold">楽曲情報</h2>
+            <PageBody>
+                <SubTitle level="h2">楽曲情報</SubTitle>
                 <table className="table">
                     <tbody className="[&_th]:bg-sky-200 [&_th]:text-black">
                         <tr>
@@ -205,7 +207,7 @@ export default function SongDetail({ song, comments }: Props) {
                         </tr>
                     </tbody>
                 </table>
-                <h2 className="mt-6 mb-6 text-xl font-bold">歌唱</h2>
+                <SubTitle level="h2">歌唱</SubTitle>
                 {vocalGroupRows.length > 0 ? (
                     <>
                         <table className="table">
@@ -258,7 +260,7 @@ export default function SongDetail({ song, comments }: Props) {
                         Inst. ver. Only
                     </div>
                 )}
-                <h2 className="mt-6 mb-6 text-xl font-bold">難易度</h2>
+                <SubTitle level="h2">難易度</SubTitle>
                 <div className="hidden md:block">
                     <table className="table">
                         <thead>
@@ -339,7 +341,7 @@ export default function SongDetail({ song, comments }: Props) {
                 </div>
                 {song.mv_urls.length > 0 && (
                     <>
-                        <h2 className="mt-6 mb-6 text-xl font-bold">MV</h2>
+                        <SubTitle level="h2">MV</SubTitle>
                         <div className="flex justify-center">
                             <Button
                                 className="mb-2 w-1/2 cursor-pointer rounded border border-blue-200 bg-blue-300 px-2 py-1 transition duration-300 hover:bg-blue-400 md:w-1/3"
@@ -386,15 +388,15 @@ export default function SongDetail({ song, comments }: Props) {
                         </motion.div>
                     </>
                 )}
-                <h2 className="mt-6 mb-6 text-xl font-bold">コメント</h2>
+                <SubTitle level="h2">コメント</SubTitle>
                 <CommentList
                     comments={comments}
                     relationId={song.id}
                     relationName="songs"
                 />
-                <h2 className="mt-6 mb-6 text-xl font-bold">コメント投稿</h2>
+                <SubTitle level="h2">コメント投稿</SubTitle>
                 <CommentForm relationId={song.id} relationName="songs" />
-            </div>
+            </PageBody>
         </>
     );
 }

@@ -1,4 +1,5 @@
 import { Link } from '@inertiajs/react';
+import PageBody from '@/components/page-body';
 import PageHeader from '@/components/pageHeader';
 
 export default function Index() {
@@ -8,7 +9,7 @@ export default function Index() {
                 caption="プロセカデータベース"
                 noTitle={true}
             ></PageHeader>
-            <div className="m-6">
+            <PageBody>
                 <div className="mb-6">
                     <img src="./images/logo_app.png" className="logo-img" />
                 </div>
@@ -30,7 +31,7 @@ export default function Index() {
                         </Link>
                     </li>
                 </ul>
-            </div>
+            </PageBody>
         </>
     );
 }

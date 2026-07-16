@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react';
 import { useMemo } from 'react';
+import PageBody from '@/components/page-body';
 import PageHeader from '@/components/pageHeader';
 import { CHARACTER_IDS } from '@/consts';
 
@@ -112,7 +113,7 @@ export default function Characters({ characters }: Props) {
                     戻る
                 </Link>
             </PageHeader>
-            <div className="m-6">
+            <PageBody>
                 <div className="grid grid-cols-2 gap-1 md:grid-cols-6">
                     {characterDataRows.map((row) => {
                         return 'unit' in row ? (
@@ -146,7 +147,7 @@ export default function Characters({ characters }: Props) {
                         );
                     })}
                 </div>
-            </div>
+            </PageBody>
         </>
     );
 }
