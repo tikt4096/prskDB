@@ -43,7 +43,7 @@ type Props = {
 
 export default function CharacterDetail({ character, comments }: Props) {
     const [cols, setCols] = useState(2);
-    const [isOpneSong, setIsOpenSong] = useState(false);
+    const [isSongSectionOpen, setIsSongSectionOpen] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
@@ -221,9 +221,9 @@ export default function CharacterDetail({ character, comments }: Props) {
                 <div className="flex justify-center">
                     <Button
                         className="mb-2 w-1/2 cursor-pointer rounded border border-blue-200 bg-blue-300 px-2 py-1 transition duration-300 hover:bg-blue-400 md:w-1/3"
-                        onClick={() => setIsOpenSong(!isOpneSong)}
+                        onClick={() => setIsSongSectionOpen(!isSongSectionOpen)}
                     >
-                        {isOpneSong ? '閉じる' : '開く'}
+                        {isSongSectionOpen ? '閉じる' : '開く'}
                     </Button>
                 </div>
                 <motion.div
@@ -232,8 +232,8 @@ export default function CharacterDetail({ character, comments }: Props) {
                         opacity: 0,
                     }}
                     animate={{
-                        height: isOpneSong ? 'auto' : 0,
-                        opacity: isOpneSong ? 1 : 0,
+                        height: isSongSectionOpen ? 'auto' : 0,
+                        opacity: isSongSectionOpen ? 1 : 0,
                     }}
                     transition={{ duration: 0.3 }}
                     style={{ overflow: 'hidden' }}
