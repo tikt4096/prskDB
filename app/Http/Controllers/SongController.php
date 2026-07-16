@@ -40,7 +40,16 @@ class SongController extends Controller
 
     function show(Song $song)
     {
-        $song->load(['type', 'unit', 'characters', 'characterToSongs.vocalType', 'creators', 'creatorToSongs.createType']);
+        $song->load([
+            'type',
+            'unit',
+            'characters',
+            'characterToSongs.vocalType',
+            'creators',
+            'creatorToSongs.createType',
+            'mvUrls'
+        ]);
+
         $comments = Comment::where('relation_id', $song->id)
             ->where('relation_name', 'songs')
             ->whereNull('reply_id')
