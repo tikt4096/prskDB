@@ -1,9 +1,11 @@
 import { Link } from '@inertiajs/react';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import CommentForm from '@/components/comment-form';
 import type { Comment } from '@/components/comment-list';
 import CommentList from '@/components/comment-list';
 import PageHeader from '@/components/pageHeader';
+import { motion } from 'motion/react';
+import { Button } from '@/components/ui/button';
 
 type SongType = {
     name: string;
@@ -47,6 +49,13 @@ type CreatorToSong = {
     create_type: CreateType;
 };
 
+type MvUrl = {
+    id: number;
+    url: string;
+    platform: string;
+    name: string;
+};
+
 export type Song = {
     id: number;
     name: string;
@@ -65,10 +74,14 @@ export type Song = {
     combo_count_master: number;
     combo_count_append: number;
     release_date: string;
+    mv_2d: boolean;
+    mv_3d: boolean;
+    mv_original: boolean;
     characters: Character[];
     character_to_songs: CharacterToSong[];
     creators: Creator[];
     creator_to_songs: CreatorToSong[];
+    mv_urls: MvUrl[];
 };
 
 type Props = {
@@ -87,6 +100,8 @@ type VocalGroup = {
 };
 
 export default function SongDetail({ song, comments }: Props) {
+    const [isMvSectionOpen, setIsMvSectionOpen] = useState(false);
+
     const vocalGroupRows = useMemo(() => {
         const singers = song.character_to_songs.map((s) => {
             const character = song.characters.find(
@@ -175,6 +190,18 @@ export default function SongDetail({ song, comments }: Props) {
                         <tr>
                             <th>配信日</th>
                             <td>{song.release_date.replace(/-/g, '/')}</td>
+                        </tr>
+                        <tr>
+                            <th>2D MV</th>
+                            <td>{song.mv_2d ? '○' : '×'}</td>
+                        </tr>
+                        <tr>
+                            <th>3D MV</th>
+                            <td>{song.mv_3d ? '○' : '×'}</td>
+                        </tr>
+                        <tr>
+                            <th>オリジナルMV</th>
+                            <td>{song.mv_original ? '○' : '×'}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -310,6 +337,55 @@ export default function SongDetail({ song, comments }: Props) {
                         </tbody>
                     </table>
                 </div>
+                {song.mv_urls.length > 0 && (
+                    <>
+                        <h2 className="mt-6 mb-6 text-xl font-bold">MV</h2>
+                        <div className="flex justify-center">
+                            <Button
+                                className="mb-2 w-1/2 cursor-pointer rounded border border-blue-200 bg-blue-300 px-2 py-1 transition duration-300 hover:bg-blue-400 md:w-1/3"
+                                onClick={() =>
+                                    setIsMvSectionOpen(!isMvSectionOpen)
+                                }
+                            >
+                                {isMvSectionOpen ? '閉じる' : '開く'}
+                            </Button>
+                        </div>
+                        <motion.div
+                            initial={{
+                                height: 0,
+                                opacity: 0,
+                            }}
+                            animate={{
+                                height: isMvSectionOpen ? 'auto' : 0,
+                                opacity: isMvSectionOpen ? 1 : 0,
+                            }}
+                            transition={{
+                                duration: 0.3,
+                            }}
+                            style={{ overflow: 'hidden' }}
+                        >
+                            <div className="grid grid-cols-1 place-items-center gap-2 md:grid-cols-2">
+                                {song.mv_urls.map((mv) => {
+                                    return (
+                                        <div className="mb-4">
+                                            <div className="mb-2 font-bold underline underline-offset-4">
+                                                {mv.name} - {mv.platform}
+                                            </div>
+                                            <iframe
+                                                width="560"
+                                                height="315"
+                                                src={mv.url}
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowFullScreen
+                                                className="max-w-full"
+                                            />
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </motion.div>
+                    </>
+                )}
                 <h2 className="mt-6 mb-6 text-xl font-bold">コメント</h2>
                 <CommentList
                     comments={comments}

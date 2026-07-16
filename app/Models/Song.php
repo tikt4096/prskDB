@@ -37,6 +37,12 @@ class Song extends Model
         return $this->hasMany(CreatorToSong::class);
     }
 
+    public function mvUrls()
+    {
+        return $this->hasMany(MvUrl::class)
+            ->orderBy('display_order');
+    }
+
     public function scopeName(Builder $query, ?string $name)
     {
         if ($name) {
