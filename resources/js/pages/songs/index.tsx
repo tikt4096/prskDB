@@ -1,6 +1,7 @@
 import { Link, router } from '@inertiajs/react';
 import { useState } from 'react';
 import CheckBox from '@/components/checkbox';
+import PageBody from '@/components/page-body';
 import PageHeader from '@/components/pageHeader';
 import Search from '@/components/search-form';
 import TextLink from '@/components/text-link';
@@ -85,7 +86,7 @@ export default function Songs({ songs, units, song_types, filters }: Props) {
                     戻る
                 </Link>
             </PageHeader>
-            <div className="m-6">
+            <PageBody>
                 <div className="flex justify-center">
                     <Search
                         onSearch={() =>
@@ -227,7 +228,7 @@ export default function Songs({ songs, units, song_types, filters }: Props) {
                         </div>
                     )}
                 </div>
-            </div>
+            </PageBody>
         </>
     );
 }
